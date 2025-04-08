@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "country": "India",
+  "countryCode": "IN",
+  "region": "TN",
+  "regionName": "Tamil Nadu",
+  "city": "Coimbatore",
+  "zip": "641018",
+  "lat": 11.0102,
+  "lon": 76.9701,
+  "timezone": "Asia/Kolkata",
+  "isp": "Beam Telecom Pvt Ltd",
+  "org": "Beam Telecom Pvt Ltd",
+  "as": "AS131269 Atria Convergence Technologies Ltd.,",
+  "query": "49.206.114.193"
+}
