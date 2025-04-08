@@ -2,8 +2,9 @@ const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const app = express();
+const fetch = require('node-fetch'); // install this if you haven't already
 
+const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -26,6 +27,22 @@ app.get('/get-location', (req, res) => {
   });
 });
 
+// ✅ NEW: Get IP location info from ip-api (called by frontend securely)
+app.get('/get-ip-info', async (req, res) => {
+  try {
+    const ipRes = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipRes.json();
+
+    const locationRes = await fetch(`https://ipwho.is/${ipData.ip}`);
+    const locationData = await locationRes.json();
+
+    res.json(locationData);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to get IP info', details: err.message });
+  }
+});
+
+
 // Clear the file every 5 minutes
 setInterval(() => {
   fs.writeFile(FILE_PATH, '{}', (err) => {
@@ -35,7 +52,7 @@ setInterval(() => {
       console.log('data.json has been cleared.');
     }
   });
-}, 5 * 60 * 1000); // 5 minutes in milliseconds
+}, 5 * 60 * 1000); // 5 minutes
 
 app.listen(8080, () => {
   console.log('Server running on http://localhost:8080');
